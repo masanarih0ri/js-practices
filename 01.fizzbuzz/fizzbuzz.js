@@ -10,7 +10,6 @@ const fizz_buzz = (num) => {
   }
 }
 
-console.log(fizz_buzz(1))
-console.log(fizz_buzz(3))
-console.log(fizz_buzz(5))
-console.log(fizz_buzz(15))
+for (let i = 1; i <= 20; i++) {
+  console.log(fizz_buzz(i));
+}
