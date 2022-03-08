@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "standard": "^16.0.4"
+  },
+  "scripts": {
+    "lint": "eslint --ext .js --ignore-path .gitignore .",
+    "fix": "eslint --fix --ext .js --ignore-path .gitignore ."
+  }
+}
