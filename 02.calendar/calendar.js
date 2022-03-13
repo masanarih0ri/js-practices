@@ -1,6 +1,6 @@
 const argv = require('minimist')(process.argv.slice(2))
-const year = argv.y ? argv.y : new Date().getFullYear()
-const month = argv.m ? argv.m : new Date().getMonth() + 1
+const year = argv.y ?? new Date().getFullYear()
+const month = argv.m ?? new Date().getMonth() + 1
 const weekday = ['日', '月', '火', '水', '木', '金', '土']
 const monthLastDay = new Date(year, month, 0).getDate()
 
