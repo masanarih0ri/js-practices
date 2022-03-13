@@ -9,12 +9,7 @@ const header = () => {
 }
 
 const weekdays = () => {
-  let weekdays = ''
-  for (let i = 0; i < weekday.length; i++) {
-    const suffix = weekday[i] === '土' ? '' : ' '
-    weekdays += `${weekday[i]}${suffix}`
-  }
-  return weekdays
+  return weekday.join(' ')
 }
 
 const days = () => {
