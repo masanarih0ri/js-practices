@@ -18,12 +18,10 @@ const weekdays = () => {
 }
 
 const days = () => {
-  let day = 1
   let displayDays = ''
   displayDays += firstBlank()
-  for (let i = 1; i <= monthLastDay; i++) {
+  for (let day = 1; day <= monthLastDay; day++) {
     displayDays += displayDay(day)
-    day++
   }
   return displayDays
 }
