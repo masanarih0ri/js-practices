@@ -27,13 +27,13 @@ const days = () => {
 }
 
 const displayDay = (day) => {
-  const suffix = isSunday(day) ? '\n' : ' '
+  const suffix = isSaturday(day) ? '\n' : ' '
   return `${padding(day.toString(), 2)}${suffix}`
 }
 
 const padding = (target, n) => String(target).padStart(n, ' ')
 
-const isSunday = (day) => {
+const isSaturday = (day) => {
   return new Date(`${year}-${month}-${day}`).getDay() === 6
 }
 
