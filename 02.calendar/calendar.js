@@ -19,10 +19,9 @@ const weekdays = () => {
 
 const days = () => {
   let displayDays = ''
+  const allDays = [...Array(monthLastDay).keys()].map((i) => displayDay(i + 1)).join('')
   displayDays += firstBlank()
-  for (let day = 1; day <= monthLastDay; day++) {
-    displayDays += displayDay(day)
-  }
+  displayDays += allDays
   return displayDays
 }
 
