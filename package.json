@@ -5,5 +5,8 @@
   "scripts": {
     "lint": "eslint --ext .js --ignore-path .gitignore .",
     "fix": "eslint --fix --ext .js --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "sqlite3": "^5.0.2"
   }
 }
