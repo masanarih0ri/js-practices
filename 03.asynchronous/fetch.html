@@ -8,18 +8,14 @@
 </head>
 <body>
   <script>
-    const responseText = (response) => {
-      return response.text()
-    }
-
     const parseToHtml = (text) => {
       return new DOMParser().parseFromString(text, 'text/html')
     }
 
     async function fjordFetch() {
-      const data = await fetch('https://bootcamp.fjord.jp/')
-      const text = await responseText(data)
-      console.log(parseToHtml(text))
+      const response = await fetch('https://bootcamp.fjord.jp/')
+      const responseText = await response.text()
+      console.log(parseToHtml(responseText))
     }
 
     fjordFetch()
