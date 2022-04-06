@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch HTML</title>
+</head>
+<body>
+  <script>
+    const parseToHtml = (text) => {
+      return new DOMParser().parseFromString(text, 'text/html')
+    }
+
+    async function fjordFetch() {
+      const response = await fetch('https://bootcamp.fjord.jp/')
+      const responseText = await response.text()
+      console.log(parseToHtml(responseText))
+    }
+
+    fjordFetch()
+  </script>
+</body>
+</html>
