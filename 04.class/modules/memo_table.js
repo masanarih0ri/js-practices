@@ -59,7 +59,6 @@ module.exports = class MemoTable {
       rows.forEach(row => {
         memos.push(row)
       })
-      console.log(typeof memos)
       return memos
     }).then(async (memos) => {
       const choices = []
