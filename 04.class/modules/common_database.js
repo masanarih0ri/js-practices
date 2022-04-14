@@ -1,13 +1,62 @@
 const sqlite3 = require('sqlite3')
-
-let database
+const memoTableName = 'memos'
 
 module.exports = class CommonDatabase {
-  static init () {
-    database = new sqlite3.Database('./mydb.sqlite3')
+  constructor () {
+    this.database = new sqlite3.Database('./mydb.sqlite3')
   }
 
-  static get () {
-    return database
+  get () {
+    return this.database
+  }
+
+  static create (db) {
+    return new Promise((resolve, reject) => {
+      try {
+        db.run(
+          `create table if not exists ${memoTableName} (
+          id integer primary key autoincrement,
+          body text
+          )`
+        )
+        return resolve()
+      } catch (error) {
+        return reject(error)
+      }
+    })
+  }
+
+  static insert (db, input) {
+    return new Promise((resolve, reject) => {
+      try {
+        db.run(`insert into ${memoTableName}(body) values(?)`, input)
+        return resolve()
+      } catch (error) {
+        return reject(error)
+      }
+    })
+  }
+
+  static selectAll (db) {
+    return new Promise((resolve, reject) => {
+      try {
+        db.all('select * from memos', (_err, rows) => {
+          resolve(rows)
+        })
+      } catch (error) {
+        return reject(error)
+      }
+    })
+  }
+
+  static delete (db, answer) {
+    return new Promise((resolve, reject) => {
+      try {
+        db.run(`delete from ${memoTableName} where id = ?`, answer.memo)
+        return resolve()
+      } catch (error) {
+        return reject(error)
+      }
+    })
   }
 }

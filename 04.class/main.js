@@ -1,12 +1,10 @@
 process.stdin.setEncoding('utf8')
-const CommonDatabase = require('./modules/common_database.js')
 const MemoTable = require('./modules/memo_table.js')
 const reader = require('readline').createInterface({
   input: process.stdin
 })
 const argv = require('minimist')(process.argv.slice(2))
 
-CommonDatabase.init()
 MemoTable.createTable()
 
 if (argv.l) {
