@@ -2,17 +2,17 @@ const CommonDatabase = require('./common_database.js')
 const Enquirer = require('enquirer')
 
 module.exports = class MemoTable {
-  static async createTable () {
+  static createTable () {
     const db = new CommonDatabase().get()
     CommonDatabase.create(db)
   }
 
-  static async save (input) {
+  static save (input) {
     const db = new CommonDatabase().get()
     CommonDatabase.insert(db, input)
   }
 
-  static async list () {
+  static list () {
     const db = new CommonDatabase().get()
     CommonDatabase.selectAll(db)
       .then((rows) => {
