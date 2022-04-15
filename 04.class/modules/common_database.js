@@ -17,9 +17,9 @@ module.exports = class CommonDatabase {
           `create table if not exists ${memoTableName} (
           id integer primary key autoincrement,
           body text
-          )`
+          )`,
+          resolve()
         )
-        return resolve()
       } catch (error) {
         return reject(error)
       }
@@ -29,8 +29,7 @@ module.exports = class CommonDatabase {
   static insert (db, input) {
     return new Promise((resolve, reject) => {
       try {
-        db.run(`insert into ${memoTableName}(body) values(?)`, input)
-        return resolve()
+        db.run(`insert into ${memoTableName}(body) values(?)`, input, resolve())
       } catch (error) {
         return reject(error)
       }
@@ -52,8 +51,7 @@ module.exports = class CommonDatabase {
   static delete (db, answer) {
     return new Promise((resolve, reject) => {
       try {
-        db.run(`delete from ${memoTableName} where id = ?`, answer.memo)
-        return resolve()
+        db.run(`delete from ${memoTableName} where id = ?`, answer.memo, resolve())
       } catch (error) {
         return reject(error)
       }
