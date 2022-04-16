@@ -22,67 +22,49 @@ module.exports = class MemoTable {
       })
   }
 
-  static async show () {
-    const db = new CommonDatabase().get()
-    CommonDatabase.selectAll(db)
-      .then((rows) => {
-        const memos = []
-        rows.forEach(row => {
-          memos.push(row)
-        })
-        return memos
-      }).then(async (memos) => {
-        const choices = []
-        memos.forEach((memo) => {
-          choices.push({
-            id: memo.id,
-            name: memo.body.split('\n')[0],
-            value: memo.body
-          })
-        })
-        const questions = {
-          type: 'select',
-          name: 'memo',
-          message: 'Choose a note you want to see:',
-          choices: choices,
-          result () {
-            return this.focused.value
-          }
-        }
-        const answer = await Enquirer.prompt(questions)
-        console.log(answer.memo)
+  static createChoices (memos) {
+    const choices = []
+    memos.forEach((memo) => {
+      choices.push({
+        id: memo.id,
+        name: memo.body.split('\n')[0],
+        value: memo.body
       })
+    })
+    return choices
+  }
+
+  static async show () {
+    const db = await new CommonDatabase().get()
+    const rows = await CommonDatabase.selectAll(db)
+    const choices = await this.createChoices(rows)
+    const questions = {
+      type: 'select',
+      name: 'memo',
+      message: 'Choose a note you want to see:',
+      choices: choices,
+      result () {
+        return this.focused.value
+      }
+    }
+    const answer = await Enquirer.prompt(questions)
+    console.log(answer.memo)
   }
 
   static async delete () {
     const db = new CommonDatabase().get()
-    CommonDatabase.selectAll(db)
-      .then((rows) => {
-        const memos = []
-        rows.forEach(row => {
-          memos.push(row)
-        })
-        return memos
-      }).then(async (memos) => {
-        const choices = []
-        memos.forEach((memo) => {
-          choices.push({
-            id: memo.id,
-            name: memo.body.split('\n')[0],
-            value: memo.body
-          })
-        })
-        const questions = {
-          type: 'select',
-          name: 'memo',
-          message: 'Choose a note you want to delete:',
-          choices: choices,
-          result () {
-            return this.focused.id
-          }
-        }
-        const answer = await Enquirer.prompt(questions)
-        CommonDatabase.delete(db, answer)
-      })
+    const rows = await CommonDatabase.selectAll(db)
+    const choices = await this.createChoices(rows)
+    const questions = {
+      type: 'select',
+      name: 'memo',
+      message: 'Choose a note you want to delete:',
+      choices: choices,
+      result () {
+        return this.focused.id
+      }
+    }
+    const answer = await Enquirer.prompt(questions)
+    CommonDatabase.delete(db, answer)
   }
 }
