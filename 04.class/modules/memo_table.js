@@ -12,14 +12,16 @@ module.exports = class MemoTable {
     CommonDatabase.insert(db, input)
   }
 
-  static list () {
+  static displayList (rows) {
+    rows.forEach(row => {
+      console.log(`${row.body.split('\n')[0]}`)
+    })
+  }
+
+  static async list () {
     const db = new CommonDatabase().get()
-    CommonDatabase.selectAll(db)
-      .then((rows) => {
-        rows.forEach(row => {
-          console.log(`${row.body.split('\n')[0]}`)
-        })
-      })
+    const rows = await CommonDatabase.selectAll(db)
+    this.displayList(rows)
   }
 
   static createChoices (memos) {
