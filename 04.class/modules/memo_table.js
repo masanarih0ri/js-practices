@@ -21,8 +21,7 @@ module.exports = class MemoTable {
   static async list () {
     const db = new CommonDatabase().get()
     const rows = await CommonDatabase.selectAll(db)
-    await this.displayList(rows)
-    process.exit()
+    this.displayList(rows)
   }
 
   static createChoices (memos) {

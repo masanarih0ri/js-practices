@@ -1,8 +1,5 @@
 process.stdin.setEncoding('utf8')
 const MemoTable = require('./modules/memo_table.js')
-const reader = require('readline').createInterface({
-  input: process.stdin
-})
 const argv = require('minimist')(process.argv.slice(2))
 
 MemoTable.createTable()
@@ -13,14 +10,17 @@ if (argv.l) {
   MemoTable.show()
 } else if (argv.d) {
   MemoTable.delete()
+} else {
+  const reader = require('readline').createInterface({
+    input: process.stdin
+  })
+  const lines = []
+  reader.on('line', (line) => {
+    lines.push(line)
+  })
+
+  reader.on('close', () => {
+    const input = lines.join('\n')
+    MemoTable.save(input)
+  })
 }
-
-const lines = []
-reader.on('line', (line) => {
-  lines.push(line)
-})
-
-reader.on('close', () => {
-  const input = lines.join('\n')
-  MemoTable.save(input)
-})
